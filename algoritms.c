@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algoritms.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jessica <jessica@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 09:09:21 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/02/06 13:00:27 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/02/06 18:40:32 by jessica          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,34 +74,40 @@ void	sort_four_five(t_list **stack_a, t_list **stack_b)
 
 void big_sort(t_list **stack_a, t_list **stack_b)
 {
-    int initial_size = ft_lstsize(*stack_a);
-    
+    int size = ft_lstsize(*stack_a);
+
     // Si hay 3 o menos números, usar sort_three_num
-    if (initial_size <= 3)
+    if (size <= 3)
     {
         sort_three_num(stack_a);
         return;
     }
 
-    // Hacer los dos primeros push para inicializar stack_b
-    ft_pb(stack_a, stack_b);
-    ft_pb(stack_a, stack_b);
+    // Push los dos primeros números directamente
+    if (size > 3)
+    {
+        ft_pb(stack_a, stack_b);
+        if (size > 4)
+            ft_pb(stack_a, stack_b);
+    }
 
-    // Mover el resto excepto 3 números
+    // Mientras queden más de 3 números en stack_a
     while (ft_lstsize(*stack_a) > 3)
     {
-        move_optim_b(stack_a, stack_b);
-        // Debug print para ver el estado después de cada movimiento
-        ft_printf("\nStack A después del movimiento:\n");
+        ft_printf("\nStack A antes del movimiento:\n");
         print_stack(*stack_a);
-        ft_printf("\nStack B después del movimiento:\n");
+        ft_printf("\nStack B antes del movimiento:\n");
         print_stack(*stack_b);
+        
+        move_optim_b(stack_a, stack_b);
     }
 
     // Ordenar los 3 números restantes
     sort_three_num(stack_a);
 
-    // Devolver números a stack_a
+    // Devolver números a stack_a en orden
     while (*stack_b)
+    {
         ft_pa(stack_a, stack_b);
+    }
 }
