@@ -6,7 +6,7 @@
 /*   By: jessica <jessica@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 09:09:21 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/02/06 18:40:32 by jessica          ###   ########.fr       */
+/*   Updated: 2025/02/08 18:23:48 by jessica          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,31 +83,47 @@ void big_sort(t_list **stack_a, t_list **stack_b)
         return;
     }
 
-    // Push los dos primeros números directamente
-    if (size > 3)
-    {
-        ft_pb(stack_a, stack_b);
-        if (size > 4)
-            ft_pb(stack_a, stack_b);
-    }
-
-    // Mientras queden más de 3 números en stack_a
+    // Mover todos excepto 3 números a B
     while (ft_lstsize(*stack_a) > 3)
     {
-        ft_printf("\nStack A antes del movimiento:\n");
-        print_stack(*stack_a);
-        ft_printf("\nStack B antes del movimiento:\n");
-        print_stack(*stack_b);
-        
-        move_optim_b(stack_a, stack_b);
+        // Encontrar el menor número y moverlo a B
+        int min_pos = 0;
+        t_list *current = *stack_a;
+        t_list *min_node = current;
+        int pos = 0;
+
+        // Encontrar el número más pequeño
+        while (current)
+        {
+            if (current->index < min_node->index)
+            {
+                min_node = current;
+                min_pos = pos;
+            }
+            current = current->next;
+            pos++;
+        }
+
+        // Mover el número más pequeño a la cima
+        if (min_pos <= ft_lstsize(*stack_a) / 2)
+        {
+            while (min_pos-- > 0)
+                ft_ra(stack_a);
+        }
+        else
+        {
+            while (min_pos++ < ft_lstsize(*stack_a))
+                ft_rra(stack_a);
+        }
+
+        // Push a B
+        ft_pb(stack_a, stack_b);
     }
 
-    // Ordenar los 3 números restantes
+    // Ordenar los 3 números que quedan en A
     sort_three_num(stack_a);
 
-    // Devolver números a stack_a en orden
+    // Devolver todos los números de B a A
     while (*stack_b)
-    {
         ft_pa(stack_a, stack_b);
-    }
 }
