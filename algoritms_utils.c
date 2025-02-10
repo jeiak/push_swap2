@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   algoritms_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jessica <jessica@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 10:42:07 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/02/06 18:45:15 by jessica          ###   ########.fr       */
+/*   Updated: 2025/02/10 13:13:58 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
+/*
 int	find_min_index(t_list *stack)
 {
 	t_list	*min_node;
@@ -27,6 +27,7 @@ int	find_min_index(t_list *stack)
 	}
 	return (min_node->index);
 }
+
 
 void move_to_top(t_list **stack, int index)
 {
@@ -68,6 +69,7 @@ void move_to_top(t_list **stack, int index)
 	}
 }
 
+
 int	get_position(t_list *stack, int index)
 {
 	int	pos;
@@ -82,40 +84,33 @@ int	get_position(t_list *stack, int index)
 	}
 	return (-1);
 }
-/////////////////////////////////////////////////
+
 
 int get_target_position(t_list *stack_b, int index)
 {
-    t_list *current;
-    int found = 0;
-    int pos = 0;
-    int largest_smaller = -1;
-    int largest_smaller_pos = 0;
-    
-    // Si B está vacío, retornar 0
-    if (!stack_b)
-        return 0;
+	t_list *current;
+	int found = 0;
+	int pos = 0;
+	int largest_smaller = -1;
+	int largest_smaller_pos = 0;
 
-    current = stack_b;
-    while (current)
-    {
-        // Encontrar el número más grande que sea menor que index
-        if (current->index < index && current->index > largest_smaller)
-        {
-            largest_smaller = current->index;
-            largest_smaller_pos = pos;
-            found = 1;
-        }
-        current = current->next;
-        pos++;
-    }
-
-    // Si encontramos un número más pequeño, colocar después de él
-    if (found)
-        return largest_smaller_pos + 1;
-        
-    // Si no encontramos ninguno, colocar en la posición 0
-    return 0;
+	if (!stack_b)
+		return 0;
+	current = stack_b;
+	while (current)
+	{
+		if (current->index < index && current->index > largest_smaller)
+		{
+			largest_smaller = current->index;
+			largest_smaller_pos = pos;
+			found = 1;
+		}
+		current = current->next;
+		pos++;
+	}
+	if (found)
+		 return largest_smaller_pos + 1;
+	return 0;
 }
 
 int	move_cost(int pos_a, int pos_b, int size_a, int size_b)
@@ -192,73 +187,93 @@ void move_optim_b(t_list **stack_a, t_list **stack_b)
     int pos = 0;
     int best_pos = 0;
 
-    // Encontrar el elemento con menor coste
-    while (current)
-    {
-        int cost = pos <= ft_lstsize(*stack_a) / 2 ? pos : ft_lstsize(*stack_a) - pos;
-        if (cost < min_cost)
-        {
-            min_cost = cost;
-            best_pos = pos;
-        }
-        pos++;
-        current = current->next;
-    }
-
-    // Mover el elemento a la cima
-    if (best_pos <= ft_lstsize(*stack_a) / 2)
-    {
-        for (int i = 0; i < best_pos; i++)
-            ft_ra(stack_a);
-    }
-    else
-    {
-        for (int i = 0; i < ft_lstsize(*stack_a) - best_pos; i++)
-            ft_rra(stack_a);
-    }
-
-    // Hacer el push
-    ft_pb(stack_a, stack_b);
+	while (current)
+	{
+		int cost = pos <= ft_lstsize(*stack_a) / 2 ? pos : ft_lstsize(*stack_a) - pos;
+		if (cost < min_cost)
+		{
+			min_cost = cost;
+			best_pos = pos;
+		}
+		pos++;
+		current = current->next;
+	}
+	if (best_pos <= ft_lstsize(*stack_a) / 2)
+	{
+		for (int i = 0; i < best_pos; i++)
+			ft_ra(stack_a);
+	}
+	else
+	{
+		for (int i = 0; i < ft_lstsize(*stack_a) - best_pos; i++)
+			ft_rra(stack_a);
+	}
+	ft_pb(stack_a, stack_b);
 }
+
 
 int validate_indices(t_list *stack)
 {
-    t_list *current = stack;
-    int size = ft_lstsize(stack);
-    int *found = calloc(size, sizeof(int));
-    int valid = 1;
-    
-    while (current)
-    {
-        if (current->index >= 0 && current->index < size)
-            found[current->index]++;
-        else
-        {
-            valid = 0;
-            break;
-        }
-        current = current->next;
-    }
-    
-    // Verificar que cada índice aparece exactamente una vez
-    for (int i = 0; i < size && valid; i++)
-    {
-        if (found[i] != 1)
-            valid = 0;
-    }
-    
-    free(found);
-    return valid;
+	t_list *current;
+	int size;
+	int *found;
+	int valid;
+
+	current = stack;
+	size = ft_lstsize(stack);
+	found = calloc(size, sizeof(int));
+	valid = 1;
+	while (current)
+	{
+		if (current->index >= 0 && current->index < size)
+			found[current->index]++;
+		else
+		{
+			valid = 0;
+			break;
+		}
+		current = current->next;
+	}
+	for (int i = 0; i < size && valid; i++)
+	{
+		if (found[i] != 1)
+		valid = 0;
+	}
+	free(found);
+	return valid;
 }
+*/
 
 int check_indices(t_list *stack)
 {
-    t_list *current = stack;
-    while (current)
-    {
-        if (current->index < 0)
-            return 0;
-        current = current->next;
-    }
-    return 1;
+	t_list *current = stack;
+	while (current)
+	{
+		if (current->index < 0)
+ 			return 0;
+	current = current->next;
+	}
+	return 1;
+}
+
+void	get_index(t_list *stack)
+{
+	t_list	*current;
+	t_list	*compare;
+	int		i;
+
+	current = stack;
+	while (current)
+	{
+		i = 0;
+		compare = stack;
+		while (compare)
+		{
+			if (current->num > compare->num)
+				i++;
+			compare = compare->next;
+		}
+		current->index = i;
+		current = current->next;
+	}
 }

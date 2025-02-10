@@ -6,7 +6,7 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 13:14:03 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/01/27 09:51:21 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/02/10 13:13:49 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,25 +80,13 @@ t_list	*get_numbers(int argc, char **argv)
 	}
 	return (stack);
 }
-
-void	get_index(t_list *stack)
+void	free_numbers(char **numbers)
 {
-	t_list	*current;
-	t_list	*compare;
-	int		i;
+	int	i;
 
-	current = stack;
-	while (current)
-	{
-		i = 0;
-		compare = stack;
-		while (compare)
-		{
-			if (current->num > compare->num)
-				i++;
-			compare = compare->next;
-		}
-		current->index = i;
-		current = current->next;
-	}
+	i = 0;
+	while (numbers && numbers[i])
+		free(numbers[i++]);
+	free(numbers);
 }
+

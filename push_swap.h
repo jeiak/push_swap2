@@ -6,7 +6,7 @@
 /*   By: jesssanc <jesssanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 09:57:41 by jesssanc          #+#    #+#             */
-/*   Updated: 2025/02/06 13:03:29 by jesssanc         ###   ########.fr       */
+/*   Updated: 2025/02/10 12:48:00 by jesssanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,6 @@ void	move_optim_b(t_list **stack_a, t_list **stack_b);
 int		validate_indices(t_list *stack);
 int		check_indices(t_list *stack);
 void	print_stack(t_list *stack);
+void	sort_two_num(t_list **stack_a);
 
 #endif
